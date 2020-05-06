@@ -1,26 +1,24 @@
 time php bin/magento maintenance:enable;
-#n98-magerun2 cache:disable;
-#php bin/magento cache:flush;
-#/usr/share/stratus/cli cache.all.clear;
 time /usr/local/bin/php -dmemory_limit=20000M bin/magento setup:upgrade;
 time /usr/local/bin/php -dmemory_limit=20000M bin/magento setup:di:compile;
 time /usr/local/bin/php -dmemory_limit=20000M bin/magento setup:static-content:deploy --jobs=$(nproc);
-#php bin/magento setup:static-content:deploy -f -j 10;
-#php bin/magento indexer:reindex;
-#n98-magerun2 cache:enable;
 /usr/share/stratus/cli autoscaling.reinit;
-sleep 200s;
+sleep 150s;
+echo "\e[41m****Flushing Magento, Varnish, Redis and CloudFront CDN cache at this stage****";
 time /usr/local/bin/php -dmemory_limit=20000M bin/magento cache:clean;
 time /usr/local/bin/php -dmemory_limit=20000M bin/magento cache:flush;
-#/usr/share/stratus/cli cache.all.clear;  -- changed to /usr/share/stratus/cli cache.cloudfront.invalidate since php-fpm pods are already nuked so waste of time to do this call.
 time /usr/share/stratus/cli cache.cloudfront.invalidate
-time php bin/magento maintenance:disable;
-echo "\e[41m****Deployment Finished Site Enabled****";
-echo "\e[41m****Beginning Indexing****";
-/usr/local/bin/php -dmemory_limit=20000M bin/magento indexer:reindex;
-echo "\e[41m****Flushing Varnish and Redis at this stage****";
-#/usr/share/stratus/cli cache.all.clear; -- No need to do that again fresh php-fpm pods are already active
 /usr/share/stratus/cli cache.varnish.clear;
 redis-cli -h redis flushall && redis-cli -h redis-config-cache -p 6381 flushall;
+time php bin/magento maintenance:disable;
+echo "\e[41m****Deployment Finished Site Enabled and tested****";
+status_code=$(curl -kI --header 'Host: cbi2cs52sas1djs9.mojostratus.io' --write-out %{http_code} --silent --output /dev/null 'https://nginx/')
+if [[ "$status_code" -ne 200 ]] ; then
+  echo "Site not active $status_code please push script again"
+else
+  echo "\e[41m****Beginning Indexing****";
+n98-magerun2 sys:cron:run indexer_reindex_all_invalid;
+n98-magerun2 indexer_update_all_views;
 
 echo "\e[41m****Activity Completed please visit store and test****";
+fi
