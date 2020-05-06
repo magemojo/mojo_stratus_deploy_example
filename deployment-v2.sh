@@ -18,7 +18,7 @@ if [[ "$status_code" -ne 200 ]] ; then
 else
   echo "\e[41m****Beginning Indexing****";
 n98-magerun2 sys:cron:run indexer_reindex_all_invalid;
-n98-magerun2 indexer_update_all_views;
+n98-magerun2 sys:cron:run indexer_update_all_views;
 
 echo "\e[41m****Activity Completed please visit store and test****";
 fi
