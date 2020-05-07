@@ -1,6 +1,7 @@
 # Mojo Stratus Deploy Example
 Recommended Bash script for Magento 2 deployments on MojoStratus Platform
 
+## Maintenance mode is needed for now because the reinit command will split brain php-fpm code until all complete. A fix for this is being actively worked on will be released soon.
 ```bash
 time php bin/magento maintenance:enable;
 ```
