@@ -50,7 +50,7 @@ echo "\e[41m****Flushing Magento, Varnish, Redis and CloudFront CDN cache at thi
 
 > Clears Cloudfront CDN cache only. This can take up to 15 minutes.
 ```bash
-/usr/share/stratus/cli cache.cloudfront.invalidate
+/usr/share/stratus/cli cache.cloudfront.invalidate;
 ```
 
 > This command purges Varnish cache entirely.
