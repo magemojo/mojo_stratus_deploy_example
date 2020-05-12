@@ -75,7 +75,7 @@ echo "\e[41m****Deployment Finished Site Enabled and tested****";
 
 > In next block we will test using CURL method if store is actually giving 200 OK response or not. This also warms caches. 
 
-> **Area that needs to be adjusted is Host: with real domain name used**.
+> **Host: needs your real domain name**.
 ```bash
 status_code=$(curl -kI --header 'Host: cbi2cs52sas1djs9.mojostratus.io' --write-out %{http_code} --silent --output /dev/null 'https://nginx/')
 ```
