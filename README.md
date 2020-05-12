@@ -18,7 +18,7 @@ php bin/magento maintenance:enable;
 /usr/local/bin/php -dmemory_limit=20000M bin/magento setup:di:compile;
 ```
 
-> This is the command you'd run before deploying to production mode. If you're running in default or developer mode, those files should be generating for your automatically. Magento 2 requires deployment of static assets such as CSS/JS based on your theme.  Deploy via your panel using these steps.  This may take some time to complete.
+> This is the command you'd run before deploying to production mode. If you're running in default or developer mode, those files should be generating for you automatically. Magento 2 requires deployment of static assets such as CSS/JS based on your theme.  Deploy via your panel using these steps.  This may take some time to complete.
 ```bash
 /usr/local/bin/php -dmemory_limit=20000M bin/magento setup:static-content:deploy --jobs=$(nproc);
 ```
