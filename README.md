@@ -1,5 +1,5 @@
 # Mojo Stratus Deploy Example
-Recommended Bash script for Magento 2 deployments on MojoStratus Platform
+Recommended Bash script for Magento 2 deployments on Mojo Stratus Platform
 
 ## Commands
 
