@@ -13,7 +13,7 @@ php bin/magento maintenance:enable;
 /usr/local/bin/php -dmemory_limit=20000M bin/magento setup:upgrade;
 ```
 
-> The command setup:di:compile command generates the contents of the var/di folder in Magento <2.2 and generated for Magento >= 2.2 and 2.3+. According to the Magento docs this is more an optimization step (that is, optimized code generation of interceptors). It's not mandatory to run setup:di:compile command everytime but if you have done any code change specially with factory methods ,proxy, add plugins or any code compilation then you must need to run this command.
+> The command setup:di:compile command generates the contents of the var/di folder in Magento <2.2 and generated for Magento >= 2.2 and 2.3+. According to the Magento docs this is more an optimization step (that is, optimized code generation of interceptors). It's not mandatory to run setup:di:compile command everytime but if you have done any code change specially with factory methods, proxy, add plugins or any code compilation then you must need to run this command.
 ```bash
 /usr/local/bin/php -dmemory_limit=20000M bin/magento setup:di:compile;
 ```
@@ -28,12 +28,12 @@ php bin/magento maintenance:enable;
 /usr/share/stratus/cli autoscaling.reinit;
 ```
 
-> We have added additional wait process to make sure scaled php-fpm pods are reinstated and fully functional
+> We have added additional wait process to make sure scaled php-fpm pods are reinstated and fully functional after the reinit command. The reinit command runs async so the sleep is needed.  We are currently improving reinit for increased speed and notification of completition - for future release.
 ```bash
 sleep 150s;
 ```
 
-> Short description of cache invalidate/flush commands pushed in next block
+> Short description of cache invalidate/flush commands pushed in next block.
 ```bash
 echo "\e[41m****Flushing Magento, Varnish, Redis and CloudFront CDN cache at this stage****";
 ```
@@ -58,7 +58,7 @@ echo "\e[41m****Flushing Magento, Varnish, Redis and CloudFront CDN cache at thi
 /usr/share/stratus/cli cache.varnish.clear;
 ```
 
-> This line purges Redis Page and Full Page cache (if Varnish not used).
+> This line purges Redis Page and Full Page cache (if Varnish not used). The Redis Session instance is not flushed.
 ```bash
 redis-cli -h redis flushall && redis-cli -h redis-config-cache -p 6381 flushall;
 ```
@@ -73,12 +73,12 @@ php bin/magento maintenance:disable;
 echo "\e[41m****Deployment Finished Site Enabled and tested****";
 ```
 
-> In next block we will test using CURL method if store is actually giving 200 OK response or not. Area that needs to be adjusted is Host: with real domain name used.
+> In next block we will test using CURL method if store is actually giving 200 OK response or not. This also warms caches. **Area that needs to be adjusted is Host: with real domain name used**.
 ```bash
 status_code=$(curl -kI --header 'Host: cbi2cs52sas1djs9.mojostratus.io' --write-out %{http_code} --silent --output /dev/null 'https://nginx/')
 ```
 
-> Two type of responces expected, either echo that task is completed or message that something went wrong and needs investigated.
+> Two type of responses expected, either echo that task is completed or message that something went wrong and needs investigated.
 ```bash
 if [[ "$status_code" -ne 200 ]] ; then
   echo "Site not active $status_code please push script again"
