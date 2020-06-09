@@ -18,6 +18,11 @@ php bin/magento maintenance:enable;
 /usr/local/bin/php -dmemory_limit=20000M bin/magento setup:di:compile;
 ```
 
+> The class loader used while developing the application is optimized to find new and changed classes. In production servers, PHP files should never change, unless a new application version is deployed. That's why you can optimize Composer's autoloader to scan the entire application once and build a "class map", which is a big array of the locations of all the classes and it's stored in vendor/composer/autoload_classmap.php.
+```bash
+/usr/local/bin/php -dmemory_limit=20000M /usr/local/bin/composer dump-autoload --no-dev --optimize --apcu;
+```
+
 > This is the command you'd run before deploying to production mode. If you're running in default or developer mode, those files should be generating for you automatically. Magento 2 requires deployment of static assets such as CSS/JS based on your theme.  Deploy via your panel using these steps.  This may take some time to complete.
 ```bash
 /usr/local/bin/php -dmemory_limit=20000M bin/magento setup:static-content:deploy --jobs=$(nproc);
