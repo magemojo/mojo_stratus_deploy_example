@@ -1,6 +1,7 @@
 php bin/magento maintenance:enable;
 /usr/local/bin/php -dmemory_limit=20000M bin/magento setup:upgrade;
 /usr/local/bin/php -dmemory_limit=20000M bin/magento setup:di:compile;
+/usr/local/bin/php -dmemory_limit=20000M /usr/local/bin/composer dump-autoload --no-dev --optimize --apcu;
 /usr/local/bin/php -dmemory_limit=20000M bin/magento setup:static-content:deploy --jobs=$(nproc);
 /usr/share/stratus/cli autoscaling.reinit;
 sleep 150s;
