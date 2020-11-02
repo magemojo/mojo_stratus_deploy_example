@@ -1,6 +1,8 @@
 # Mojo Stratus Deploy Example
 Recommended Bash script for Magento 2 deployments on Mojo Stratus Platform
 
+For Zero Downtime deployment example navigate down or click https://github.com/magemojo/mojo_stratus_deploy_example/blob/master/README.md#mojo-stratus-zero-downtime-deploy-example here.
+
 ## Commands
 
 > Maintenance mode is needed for now because the reinit command will split brain php-fpm code until all complete. A fix for this is being actively worked on will be released soon.
