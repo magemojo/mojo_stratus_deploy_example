@@ -3,7 +3,7 @@ Recommended Bash script for Magento 2 deployments on Mojo Stratus Platform using
 Kb: https://magemojo.com/kb/best-practices/zero-downtime-deploys/ <BR>
 filename: deploy-zdd.sh <BR>
 
-For old deployment example navigate down or click https://github.com/magemojo/mojo_stratus_deploy_example/blob/master/README.md#mojo-stratus-zero-downtime-deploy-example here.
+For old deployment example navigate down or click https://github.com/magemojo/mojo_stratus_deploy_example/blob/master/README.md#mojo-stratus-deploy-example here.
 
 ## Commands
 
