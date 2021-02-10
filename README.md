@@ -35,7 +35,7 @@ To prevent generated files from being deleted, please update command with --keep
 
 > Run the switch command to switch over to the new code base
 ```bash
-/usr/share/stratus/cli zerdowntime.switch;
+/usr/share/stratus/cli zerodowntime.switch;
 ```
 
 > Short description of cache invalidate/flush commands pushed in next block.
