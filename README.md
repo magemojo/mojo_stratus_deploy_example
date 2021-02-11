@@ -7,7 +7,8 @@ For old deployment example navigate down or click https://github.com/magemojo/mo
 
 ## Commands
 > Stop crons
-```/usr/share/stratus/cli crons.stop;
+```
+/usr/share/stratus/cli crons.stop;
 ```
 
 > If you enabled one or more modules, then you will need to run magento setup:upgrade to update the database schema. By default, magento setup:upgrade clears compiled code and the cache. Typically, you use magento setup:upgrade to update components and each component can require different compiled classes.
