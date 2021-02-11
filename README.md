@@ -242,7 +242,7 @@ echo "\e[41m****Deployment Finished Site Enabled and tested****";
 status_code=$(curl -kI --header 'Host: cbi2cs52sas1djs9.mojostratus.io' --write-out %{http_code} --silent --output /dev/null 'https://nginx/')
 ```
 
-> Two type of responses expected, either echo that task is completed or message that something went wrong and needs investigated.
+> Two type of responses expected, either echo that task is completed or message that something went wrong and needs investigated. We will execute two Magento 2 cron tasks to Reindex all Invalid indexers and updated all views. Also, we will start Cron container and Cron tasks defined in the Stratus panel.
 ```bash
 if [[ "$status_code" -ne 200 ]] ; then
   echo "Site not active $status_code please push script again"
@@ -250,6 +250,8 @@ else
   echo "\e[41m****Beginning Indexing****";
   n98-magerun2 sys:cron:run indexer_reindex_all_invalid;
   n98-magerun2 sys:cron:run indexer_update_all_views;
+  /usr/share/stratus/cli crons.start;
+  
   echo "\e[41m****Activity Completed please visit store and test****";
 fi
 ```
