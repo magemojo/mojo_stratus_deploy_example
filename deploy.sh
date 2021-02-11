@@ -1,3 +1,4 @@
+/usr/share/stratus/cli crons.stop;
 php bin/magento maintenance:enable;
 /usr/local/bin/php -dmemory_limit=20000M bin/magento setup:upgrade;
 /usr/local/bin/php -dmemory_limit=20000M bin/magento setup:di:compile;
@@ -20,6 +21,7 @@ else
   echo "\e[41m****Beginning Indexing****";
 n98-magerun2 sys:cron:run indexer_reindex_all_invalid;
 n98-magerun2 sys:cron:run indexer_update_all_views;
+/usr/share/stratus/cli crons.start;
 
 echo "\e[41m****Activity Completed please visit store and test****";
 fi
