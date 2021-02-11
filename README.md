@@ -158,7 +158,8 @@ Recommended Bash script for Magento 2 deployments on Mojo Stratus Platform
 ## Commands
 
 > Stop crons
-```/usr/share/stratus/cli crons.stop;
+```
+/usr/share/stratus/cli crons.stop;
 ```
 
 > Maintenance mode is needed for now because the reinit command will split brain php-fpm code until all complete. A fix for this is being actively worked on will be released soon.
