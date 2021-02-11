@@ -1,3 +1,4 @@
+/usr/share/stratus/cli crons.stop;
 ### PUSH NEW CODE/UPDATES HERE
 ### git pull etc
 /usr/local/bin/php -dmemory_limit=8000M bin/magento setup:upgrade;
@@ -20,3 +21,4 @@ else
   echo "\e[41m****Beginning Indexing****";
 n98-magerun2 sys:cron:run indexer_reindex_all_invalid;
 n98-magerun2 sys:cron:run indexer_update_all_views;
+/usr/share/stratus/cli crons.start
