@@ -6,6 +6,9 @@ filename: deploy-zdd.sh <BR>
 For old deployment example navigate down or click https://github.com/magemojo/mojo_stratus_deploy_example/blob/master/README.md#mojo-stratus-deploy-example here.
 
 ## Commands
+> Stop crons
+```/usr/share/stratus/cli crons.stop;
+```
 
 > If you enabled one or more modules, then you will need to run magento setup:upgrade to update the database schema. By default, magento setup:upgrade clears compiled code and the cache. Typically, you use magento setup:upgrade to update components and each component can require different compiled classes.
 ```bash
@@ -80,7 +83,7 @@ echo "\e[41m****Deployment Finished Site Enabled and tested****";
 status_code=$(curl -kI --header 'Host: cbi2cs52sas1djs9.mojostratus.io' --write-out %{http_code} --silent --output /dev/null 'https://nginx/')
 ```
 
-> Two type of responses expected, either echo that task is completed or message that something went wrong and needs investigated.
+> Two type of responses expected, either echo that task is completed or message that something went wrong and needs investigated. We will execute two Magento 2 cron tasks to Reindex all Invalid indexers and updated all views. Also, we will start Cron container and Cron tasks defined in the Stratus panel.
 ```bash
 if [[ "$status_code" -ne 200 ]] ; then
   echo "Site not active $status_code please push script again"
@@ -88,6 +91,8 @@ else
   echo "\e[41m****Beginning Indexing****";
   n98-magerun2 sys:cron:run indexer_reindex_all_invalid;
   n98-magerun2 sys:cron:run indexer_update_all_views;
+  /usr/share/stratus/cli crons.start;
+  
   echo "\e[41m****Activity Completed please visit store and test****";
 fi
 ```
@@ -132,7 +137,7 @@ echo "\e[41m****Deployment Finished Site Enabled and tested****";
 status_code=$(curl -kI --header 'Host: cbi2cs52sas1djs9.mojostratus.io' --write-out %{http_code} --silent --output /dev/null 'https://nginx/')
 ```
 
-> Two type of responses expected, either echo that task is completed or message that something went wrong and needs investigated.
+> Two type of responses expected, either echo that task is completed or message that something went wrong and needs investigated. We will execute two Magento 2 cron tasks to Reindex all Invalid indexers and updated all views. Also, we will start Cron container and Cron tasks defined in the Stratus panel.
 ```bash
 if [[ "$status_code" -ne 200 ]] ; then
   echo "Site not active $status_code please push script again"
@@ -140,6 +145,8 @@ else
   echo "\e[41m****Beginning Indexing****";
   n98-magerun2 sys:cron:run indexer_reindex_all_invalid;
   n98-magerun2 sys:cron:run indexer_update_all_views;
+  /usr/share/stratus/cli crons.start;
+  
   echo "\e[41m****Activity Completed please visit store and test****";
 fi
 ```
@@ -148,6 +155,10 @@ fi
 Recommended Bash script for Magento 2 deployments on Mojo Stratus Platform
 
 ## Commands
+
+> Stop crons
+```/usr/share/stratus/cli crons.stop;
+```
 
 > Maintenance mode is needed for now because the reinit command will split brain php-fpm code until all complete. A fix for this is being actively worked on will be released soon.
 ```bash
