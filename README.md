@@ -96,8 +96,6 @@ else
   
   echo "\e[41m****Activity Completed please visit store and test****";
 fi
-```
-
 /usr/local/bin/php -dmemory_limit=20000M bin/magento cache:clean;
 ```
 
