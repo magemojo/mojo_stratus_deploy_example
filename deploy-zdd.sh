@@ -6,11 +6,11 @@
 /usr/local/bin/php -dmemory_limit=8000M /usr/local/bin/composer dump-autoload --no-dev --optimize --apcu;
 /usr/local/bin/php -dmemory_limit=8000M bin/magento setup:static-content:deploy --jobs=$(nproc);
 /usr/share/stratus/cli zerodowntime.init;
-/usr/share/stratus/cli zerdowntime.switch;
+/usr/share/stratus/cli zerodowntime.switch;
 echo "\e[41m****Flushing Magento, Varnish, Redis and CloudFront CDN cache at this stage****";
 /usr/local/bin/php -dmemory_limit=8000M bin/magento cache:clean;
 /usr/local/bin/php -dmemory_limit=8000M bin/magento cache:flush;
-/usr/share/stratus/cli cache.cloudfront.invalidate
+/usr/share/stratus/cli cache.cloudfront.invalidate;
 /usr/share/stratus/cli cache.varnish.clear;
 redis-cli -h redis flushall && redis-cli -h redis-config-cache -p 6381 flushall;
 echo "\e[41m****Deployment Finished Site Enabled and tested****";
