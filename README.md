@@ -47,12 +47,12 @@ To prevent generated files from being deleted, please update command with --keep
 echo "\e[41m****Flushing Magento, Varnish, Redis and CloudFront CDN cache at this stage****";
 ```
 
-> Cleaning a cache type deletes all items from enabled Magento cache types only. In other words, this option does not affect other processes or applications because it cleans only the cache that Magento uses.
+> Cleaning a cache type deletes all items from enabled Magento cache types only. In other words, this option does not affect other processes or applications because it cleans only the cache that Magento uses. Magento 2.4.2 users can remove cache:clean from their deployment scripts since latest setup:upgrade flushes caches when executed.
 ```bash
 /usr/local/bin/php -dmemory_limit=8000M bin/magento cache:clean;
 ```
 
-> Flushing a cache type purges the cache storage, which might affect other processes applications that are using the same storage.
+> Flushing a cache type purges the cache storage, which might affect other processes applications that are using the same storage. Magento 2.4.2 users can remove cache:flush from their deployment scripts since latest setup:upgrade flushes caches when executed.
 ```bash
 /usr/local/bin/php -dmemory_limit=8000M bin/magento cache:flush;
 ```
@@ -200,12 +200,12 @@ sleep 150s;
 echo "\e[41m****Flushing Magento, Varnish, Redis and CloudFront CDN cache at this stage****";
 ```
 
-> Cleaning a cache type deletes all items from enabled Magento cache types only. In other words, this option does not affect other processes or applications because it cleans only the cache that Magento uses.
+> Cleaning a cache type deletes all items from enabled Magento cache types only. In other words, this option does not affect other processes or applications because it cleans only the cache that Magento uses. Magento 2.4.2 users can remove cache:clean from their deployment scripts since latest setup:upgrade flushes caches when executed.
 ```bash
 /usr/local/bin/php -dmemory_limit=20000M bin/magento cache:clean;
 ```
 
-> Flushing a cache type purges the cache storage, which might affect other processes applications that are using the same storage.
+> Flushing a cache type purges the cache storage, which might affect other processes applications that are using the same storage. Magento 2.4.2 users can remove cache:flush from their deployment scripts since latest setup:upgrade flushes caches when executed.
 ```bash
 /usr/local/bin/php -dmemory_limit=20000M bin/magento cache:flush;
 ```
