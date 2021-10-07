@@ -19,6 +19,7 @@ if [[ "$status_code" -ne 200 ]] ; then
   echo "Site not active $status_code please push script again"
 else
   echo "\e[41m****Beginning Indexing****";
+fi
 n98-magerun2 sys:cron:run indexer_reindex_all_invalid;
 n98-magerun2 sys:cron:run indexer_update_all_views;
 /usr/share/stratus/cli crons.start
