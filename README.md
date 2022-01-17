@@ -57,6 +57,11 @@ echo "\e[41m****Flushing Magento, Varnish, Redis and CloudFront CDN cache at thi
 /usr/local/bin/php -dmemory_limit=8000M bin/magento cache:flush;
 ```
 
+> Flushes only the PHP OpCache.
+```bash
+/usr/share/stratus/cli cache.opcache.flush;
+```
+  
 > Clears Cloudfront CDN cache only. This can take up to 15 minutes.
 ```bash
 /usr/share/stratus/cli cache.cloudfront.invalidate;
