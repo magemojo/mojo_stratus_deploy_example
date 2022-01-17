@@ -10,6 +10,7 @@
 echo "\e[41m****Flushing Magento, Varnish, Redis and CloudFront CDN cache at this stage****";
 /usr/local/bin/php -dmemory_limit=8000M bin/magento cache:clean;
 /usr/local/bin/php -dmemory_limit=8000M bin/magento cache:flush;
+/usr/share/stratus/cli cache.opcache.flush;
 /usr/share/stratus/cli cache.cloudfront.invalidate;
 /usr/share/stratus/cli cache.varnish.clear;
 redis-cli -h redis flushall && redis-cli -h redis-config-cache -p 6381 flushall;
