@@ -86,7 +86,7 @@ echo "\e[41m****Deployment Finished Site Enabled and tested****";
 
 > **Host: needs your real domain name**.
 ```bash
-status_code=$(curl -kI --header 'Host: cbi2cs52sas1djs9.mojostratus.io' --write-out %{http_code} --silent --output /dev/null 'https://nginx/')
+status_code=$(curl -kI --header 'Host: {yourhost}.com' --write-out %{http_code} --silent --output /dev/null 'https://nginx/')
 ```
 
 > Two type of responses expected, either echo that task is completed or message that something went wrong and needs investigated. We will execute two Magento 2 cron tasks to Reindex all Invalid indexers and updated all views. Also, we will start Cron container and Cron tasks defined in the Stratus panel.
