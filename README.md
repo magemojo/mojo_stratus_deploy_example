@@ -84,7 +84,7 @@ echo "\e[41m****Deployment Finished Site Enabled and tested****";
 
 > In next block we will test using CURL method if store is actually giving 200 OK response or not. This also warms caches. 
 
-> **Host: needs your real domain name**.
+> **Host: needs your real domain name, replace "{yourhost}.com" with your URL, for example cbi2cs52sas1djs9.mojostratus.io"**.
 ```bash
 status_code=$(curl -kI --header 'Host: {yourhost}.com' --write-out %{http_code} --silent --output /dev/null 'https://nginx/')
 ```
@@ -115,7 +115,7 @@ Recommended Bash script for Magento 2 deployments on Mojo Stratus Platform
 
 > Maintenance mode is needed for now because the reinit command will split brain php-fpm code until all complete. A fix for this is being actively worked on will be released soon.
 ```bash
-php bin/magento maintenance:enable;
+/usr/local/bin/php bin/magento maintenance:enable;
 ```
 
 > If you enabled one or more modules, then you will need to run magento setup:upgrade to update the database schema. By default, magento setup:upgrade clears compiled code and the cache. Typically, you use magento setup:upgrade to update components and each component can require different compiled classes.
@@ -163,6 +163,11 @@ echo "\e[41m****Flushing Magento, Varnish, Redis and CloudFront CDN cache at thi
 /usr/local/bin/php -dmemory_limit=20000M bin/magento cache:flush;
 ```
 
+> Flushes only the PHP OpCache.
+```bash
+/usr/share/stratus/cli cache.opcache.flush;
+```
+
 > Clears Cloudfront CDN cache only. This can take up to 15 minutes.
 ```bash
 /usr/share/stratus/cli cache.cloudfront.invalidate;
@@ -180,7 +185,7 @@ redis-cli -h redis flushall && redis-cli -h redis-config-cache -p 6381 flushall;
 
 > Disable maintenance mode command.
 ```bash
-php bin/magento maintenance:disable;
+/usr/local/bin/php bin/magento maintenance:disable;
 ```
 
 > Description message that deployment is being done and that certain testing starts.
@@ -190,9 +195,9 @@ echo "\e[41m****Deployment Finished Site Enabled and tested****";
 
 > In next block we will test using CURL method if store is actually giving 200 OK response or not. This also warms caches. 
 
-> **Host: needs your real domain name**.
+> **Host: needs your real domain name, replace "{yourhost}.com" with your URL, for example cbi2cs52sas1djs9.mojostratus.io"**.
 ```bash
-status_code=$(curl -kI --header 'Host: cbi2cs52sas1djs9.mojostratus.io' --write-out %{http_code} --silent --output /dev/null 'https://nginx/')
+status_code=$(curl -kI --header 'Host: {yourhost}.com' --write-out %{http_code} --silent --output /dev/null 'https://nginx/')
 ```
 
 > Two type of responses expected, either echo that task is completed or message that something went wrong and needs investigated. We will execute two Magento 2 cron tasks to Reindex all Invalid indexers and updated all views. Also, we will start Cron container and Cron tasks defined in the Stratus panel.
